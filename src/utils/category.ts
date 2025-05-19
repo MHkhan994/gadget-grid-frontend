@@ -21,6 +21,7 @@ export const generateCategoryTree = (
             categoryTree.push({
                 _id: category._id,
                 name: category.name,
+                slug: category.slug,
                 parent_id: category.parent_id,
                 product_details_categories: category.product_details_categories,
                 subCategories: generateCategoryTree(categories, category._id),

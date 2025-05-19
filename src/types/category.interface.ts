@@ -10,6 +10,7 @@ export interface TCategory {
     product_details_categories: TProductCategory[];
     _id: string;
     isDeleted?: boolean;
+    slug: string;
 }
 
 export interface TTreeCategory {
@@ -19,6 +20,7 @@ export interface TTreeCategory {
     _id: string;
     subCategories: TTreeCategory[];
     isDeleted?: boolean;
+    slug: string;
 }
 
 export interface TCreateCategory {

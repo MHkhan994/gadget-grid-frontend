@@ -1,13 +1,6 @@
-import {
-    Menubar,
-    MenubarContent,
-    MenubarItem,
-    MenubarMenu,
-    MenubarSeparator,
-    MenubarShortcut,
-    MenubarTrigger,
-} from '@/components/ui/menubar';
 import { generateCategoryTree } from '@/utils/category';
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 async function NavbarMain() {
     const res = await fetch(
@@ -15,26 +8,66 @@ async function NavbarMain() {
     );
     const data = await res.json();
 
-    const categoryTree = generateCategoryTree(data.data);
-    // Filter out any deleted categories
-    const activeCategories = categoryTree.filter((cat) => !cat.isDeleted);
+    const categoryTree = generateCategoryTree(data?.data || []);
 
     return (
-        <Menubar>
-            <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-        </Menubar>
+        <div className='flex px-2 py-1 gap-1 justify-between w-full'>
+            {categoryTree.map((cat, i) => {
+                return (
+                    <div
+                        key={cat._id}
+                        className='cursor-pointer group relative'
+                    >
+                        <Link
+                            href={`/${cat.slug}`}
+                            className='text-sm font-semibold'
+                        >
+                            {cat.name}
+                        </Link>
+                        {cat.subCategories.length > 0 && (
+                            <div className='w-40 border border-t-primary border-t-2 border-border min-h-52 shadow-sm absolute hidden group-hover:block'>
+                                {cat.subCategories.map((scat) => {
+                                    return (
+                                        <div
+                                            key={scat._id}
+                                            className='cursor-pointer w-full group/2 relative'
+                                        >
+                                            <Link
+                                                href={`/${scat.slug}`}
+                                                className='hover:bg-primary hover:text-white w-full text-sm flex justify-between items-center px-2 py-1'
+                                            >
+                                                {scat.name}{' '}
+                                                {scat.subCategories.length >
+                                                    0 && (
+                                                    <ChevronRight size={16} />
+                                                )}
+                                            </Link>
+                                            {scat.subCategories.length > 0 && (
+                                                <div
+                                                    className={`w-40 border -top-[0px] border-t-2 border-t-primary border-border min-h-52 hidden shadow-sm absolute group-hover/2:block ${categoryTree.length / 2 > i ? 'left-[calc(100%)]' : 'right-[calc(100%)]'}`}
+                                                >
+                                                    {scat.subCategories.map(
+                                                        (ssCat) => (
+                                                            <Link
+                                                                key={ssCat._id}
+                                                                href={`/${ssCat.slug}`}
+                                                                className='hover:bg-primary hover:text-white w-full text-sm flex justify-between items-center px-2 py-1'
+                                                            >
+                                                                {ssCat.name}
+                                                            </Link>
+                                                        ),
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
+                );
+            })}
+        </div>
     );
 }
 
