@@ -14,7 +14,7 @@ async function NavbarMain() {
     return (
         <div>
             <Topbar />
-            <div className='flex px-2 py-1 gap-1 justify-between w-full'>
+            <div className='xl:flex hidden border-b border-forground-border rounded-none shadow-md px-2 py-2 gap-1 justify-between sticky top-0 z-50 w-full'>
                 {categoryTree.map((cat, i) => {
                     return (
                         <div
@@ -23,12 +23,12 @@ async function NavbarMain() {
                         >
                             <Link
                                 href={`/${cat.slug}`}
-                                className='text-sm font-semibold text-dark-gray'
+                                className='text-sm font-semibold hover:text-primary-white text-dark-gray'
                             >
                                 {cat.name}
                             </Link>
                             {cat.subCategories.length > 0 && (
-                                <div className='w-40 border border-t-primary border-t-2 border-border min-h-52 shadow-sm absolute hidden group-hover:block'>
+                                <div className='w-40 dark:bg-foreground rounded-sm border border-t-primary border-t-2 border-border min-h-52 shadow-sm absolute hidden group-hover:block'>
                                     {cat.subCategories.map((scat) => {
                                         return (
                                             <div
@@ -37,7 +37,7 @@ async function NavbarMain() {
                                             >
                                                 <Link
                                                     href={`/${scat.slug}`}
-                                                    className='hover:bg-primary text-dark-gray w-full text-sm flex justify-between items-center px-2 py-1'
+                                                    className='hover:bg-primary hover:text-pure-white text-dark-gray rounded-sm w-full text-sm flex justify-between items-center px-2 py-1'
                                                 >
                                                     {scat.name}{' '}
                                                     {scat.subCategories.length >
@@ -59,7 +59,7 @@ async function NavbarMain() {
                                                                         ssCat._id
                                                                     }
                                                                     href={`/${ssCat.slug}`}
-                                                                    className='hover:bg-primary hover:text-white w-full text-sm flex justify-between items-center px-2 py-1'
+                                                                    className='hover:bg-primary hover:text-pure-white w-full text-sm flex justify-between text-dark-gray items-center px-2 py-1'
                                                                 >
                                                                     {ssCat.name}
                                                                 </Link>

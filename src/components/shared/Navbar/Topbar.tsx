@@ -1,33 +1,65 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Moon, ShoppingCart, Sun, User } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import {
+    ArrowRightLeft,
+    Computer,
+    Moon,
+    Search,
+    ShoppingCart,
+    Sun,
+    User,
+} from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
+import MobileCategoryMenu from './MobileCategoryMenu';
+import ThemeButton from './ThemeButton';
 
 const Topbar = () => {
-    const { theme, setTheme } = useTheme();
-
     return (
-        <div className='w-full px-2 py-1 flex justify-between items-center'>
+        <div className='w-full px-2 py-3 bg-background flex justify-between items-center'>
+            <MobileCategoryMenu />
             <h2 className='text-dark-gray'>Gadget Grid</h2>
-            <div>
-                <Input />
-            </div>
-            <div className='flex gap-2 items-center'>
-                <Button variant={'secondary'}>
-                    <ShoppingCart size={18} />
+            <div className='text-dark-gray  w-full max-w-96 ps-2 gap-2 xl:flex hidden border border-forground-border rounded-md'>
+                <Input
+                    className='border-none w-full p-0'
+                    placeholder='Search Product/Category/Brand'
+                />
+                <Button className='rounded-none rounded-r-md'>
+                    <Search size={20} />
                 </Button>
-                <Button>
-                    <User size={18} />
+            </div>
+            <div className='flex items-center'>
+                <Button variant={'primary_light'} className='mr-2'>
+                    <Link
+                        href={'/pc-builder'}
+                        className='flex gap-1 items-center'
+                    >
+                        <Computer size={18} />
+                        PC Builder
+                    </Link>
                 </Button>
                 <Button
-                    onClick={() =>
-                        setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
-                    }
+                    tooltip='Compare'
+                    variant={'plain'}
+                    className='text-dark-gray'
                 >
-                    {theme === 'dark' ? <Moon /> : <Sun />}
+                    <ArrowRightLeft size={20} />
                 </Button>
+                <Button
+                    variant={'plain'}
+                    tooltip='My Cart'
+                    className='text-dark-gray'
+                >
+                    <ShoppingCart size={20} />
+                </Button>
+                <Button
+                    variant={'plain'}
+                    tooltip='My Profile'
+                    className='text-dark-gray'
+                >
+                    <User size={20} />
+                </Button>
+                <ThemeButton />
             </div>
         </div>
     );

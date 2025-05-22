@@ -33,7 +33,7 @@ const buttonVariants = cva(
                     'bg-secondary text-dark-gray hover:bg-secondary border border-secondary-border stroke-dark-gray fill-primary',
                 ghost: 'hover:bg-accent hover:text-accent-foreground',
                 link: 'text-primary underline-offset-4 hover:underline',
-                plain: 'bg-tranparent border border border-forground-border text-dark-gray stroke-dark-gray fill-dark-gray',
+                plain: 'bg-tranparent text-dark-gray stroke-dark-gray fill-dark-gray',
                 white: 'bg-pure-white border border border-forground-border text-primary stroke-dark-gray fill-dark-gray',
                 export_button:
                     'sm:size-9 size-8 rounded-md bg-primary-light hover:bg-secondary border',
