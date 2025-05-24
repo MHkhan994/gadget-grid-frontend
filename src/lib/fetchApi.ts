@@ -4,7 +4,6 @@ interface ApiRequestOptions extends RequestInit {
 export async function api(endpoint: string, options: ApiRequestOptions = {}) {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const url = `${baseUrl}${endpoint}`;
-    console.log(url);
 
     const config = {
         ...options,

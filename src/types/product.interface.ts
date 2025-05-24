@@ -16,6 +16,16 @@ export type TProductWarrenty = {
     lifetime: boolean;
 };
 
+export type TPFilter = {
+    _id: string;
+    filterId: number;
+    title: string;
+    options: {
+        optionId: number;
+        value: string;
+    }[];
+};
+
 export interface TProductAttribute {
     name: string;
     fields: Record<string, string>;

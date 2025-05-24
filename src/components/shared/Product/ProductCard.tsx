@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { TProduct, TReview } from '@/types/product.interface';
 import { Badge } from '@/components/ui/badge';
+import { isValidUrl } from '@/utils/common';
 
 const calculateRating = (reviews?: TReview[]) => {
     const totalRating =
@@ -53,59 +54,58 @@ export default function ProductCard({ product }: { product: TProduct }) {
 
     return (
         <Card className='group relative overflow-hidden bg-foreground transition-all hover:shadow-md'>
-            <Link href={`/products/${product.slug}`} className='block'>
-                <div className='relative aspect-square overflow-hidden'>
-                    {product.discount && (
-                        <Badge className='absolute right-2 top-2 z-10 bg-green-500 text-pure-white'>
-                            Save {(product.price - discountPrice).toFixed(0)}{' '}
-                            Taka
-                        </Badge>
-                    )}
-                    <Image
-                        src={'/product-placeholder.jpg'}
-                        alt={product?.name}
-                        fill
-                        className='object-cover transition-transform group-hover:scale-105'
-                    />
-                </div>
-                <CardContent className='p-4'>
-                    <div className='mb-2 flex items-center'>
-                        <div className='flex items-center'>
-                            <Star className='h-4 w-4 fill-primary text-primary' />
-                            <span className='ml-1 text-sm font-medium'>
-                                {rating}
-                            </span>
-                        </div>
-                        <span className='mx-1 text-muted-foreground'>•</span>
-                        <span className='text-xs text-muted-foreground'>
-                            {product.reviews?.length || 0} reviews
+            <div className='relative aspect-square overflow-hidden'>
+                {product.discount && (
+                    <Badge className='absolute right-2 top-2 z-10 bg-green-500 text-pure-white'>
+                        Save {(product.price - discountPrice).toFixed(0)} Taka
+                    </Badge>
+                )}
+                <Image
+                    src={
+                        isValidUrl(product.thumbnail)
+                            ? product.thumbnail
+                            : '/product-placeholder.jpg'
+                    }
+                    alt={product?.name}
+                    fill
+                    className='object-cover transition-transform group-hover:scale-105'
+                />
+            </div>
+            <CardContent className='p-4'>
+                <div className='mb-2 flex items-center'>
+                    <div className='flex items-center'>
+                        <Star className='h-4 w-4 fill-primary text-primary' />
+                        <span className='ml-1 text-sm font-medium'>
+                            {rating}
                         </span>
                     </div>
-                    <h3 className='line-clamp-2 text-base font-medium leading-tight'>
+                    <span className='mx-1 text-muted-foreground'>•</span>
+                    <span className='text-xs text-muted-foreground'>
+                        {product.reviews?.length || 0} reviews
+                    </span>
+                </div>
+                <Link href={`/products/${product.slug}`} className='block'>
+                    <h3 className='line-clamp-2 text-sm font-medium leading-tight hover:text-primary-white hover:underline'>
                         {product.name}
                     </h3>
-                    <div className='mt-2 flex items-center justify-between'>
-                        <div>
-                            <span className='text-lg font-bold text-primary-white'>
-                                ৳{discountPrice.toLocaleString()}
+                </Link>
+                <div className='mt-2 flex items-center justify-between'>
+                    <div>
+                        <span className='font-bold text-primary-white text-sm'>
+                            ৳{discountPrice.toLocaleString()}
+                        </span>
+                        {product.discount && (
+                            <span className='ml-2 text-sm text-muted-foreground line-through'>
+                                ৳{product.price.toLocaleString()}
                             </span>
-                            {product.discount && (
-                                <span className='ml-2 text-sm text-muted-foreground line-through'>
-                                    ৳{product.price.toLocaleString()}
-                                </span>
-                            )}
-                        </div>
-                        <Button
-                            size='sm'
-                            variant='outline'
-                            className='h-8 w-8 p-0'
-                        >
-                            <ShoppingCart className='h-4 w-4' />
-                            <span className='sr-only'>Add to cart</span>
-                        </Button>
+                        )}
                     </div>
-                </CardContent>
-            </Link>
+                    <Button size='sm' variant='outline' className='h-8 w-8 p-0'>
+                        <ShoppingCart className='h-4 w-4' />
+                        <span className='sr-only'>Add to cart</span>
+                    </Button>
+                </div>
+            </CardContent>
         </Card>
     );
 }
