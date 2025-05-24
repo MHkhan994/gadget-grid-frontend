@@ -28,7 +28,7 @@ async function NavbarMain() {
                                 {cat.name}
                             </Link>
                             {cat.subCategories.length > 0 && (
-                                <div className='w-40 dark:bg-foreground rounded-sm border border-t-primary border-t-2 border-border min-h-52 shadow-sm absolute hidden group-hover:block'>
+                                <div className='w-40 bg-background dark:bg-foreground rounded-sm border border-t-primary border-t-2 border-border min-h-52 shadow-sm absolute hidden group-hover:block'>
                                     {cat.subCategories.map((scat) => {
                                         return (
                                             <div
@@ -37,7 +37,7 @@ async function NavbarMain() {
                                             >
                                                 <Link
                                                     href={`/${scat.slug}`}
-                                                    className='hover:bg-primary hover:text-pure-white text-dark-gray rounded-sm w-full text-sm flex justify-between items-center px-2 py-1'
+                                                    className='hover:bg-primary hover:text-pure-white text-dark-gray w-full text-sm flex justify-between items-center px-2 py-1'
                                                 >
                                                     {scat.name}{' '}
                                                     {scat.subCategories.length >
@@ -50,7 +50,7 @@ async function NavbarMain() {
                                                 {scat.subCategories.length >
                                                     0 && (
                                                     <div
-                                                        className={`w-40 border -top-[0px] border-t-2 border-t-primary border-forground-border min-h-52 hidden shadow-sm absolute group-hover/2:block ${categoryTree.length / 2 > i ? 'left-[calc(100%)]' : 'right-[calc(100%)]'}`}
+                                                        className={`w-40 border -top-[0px] border-t-2 border-t-primary border-forground-border min-h-52 hidden bg-background dark:bg-foreground shadow-sm absolute group-hover/2:block ${categoryTree.length / 2 > i ? 'left-[calc(100%)]' : 'right-[calc(100%)]'}`}
                                                     >
                                                         {scat.subCategories.map(
                                                             (ssCat) => (

@@ -294,3 +294,7 @@ input {
         @apply bg-background;
     }
 }
+
+.my-container {
+    @apply w-[95%] max-w-[1920px] mx-auto;
+}
