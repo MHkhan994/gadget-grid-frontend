@@ -11,6 +11,8 @@ export interface TCategory {
     _id: string;
     isDeleted?: boolean;
     slug: string;
+    isFeatured: boolean;
+    image?: string;
 }
 
 export interface TTreeCategory {
@@ -21,15 +23,6 @@ export interface TTreeCategory {
     subCategories: TTreeCategory[];
     isDeleted?: boolean;
     slug: string;
-}
-
-export interface TCreateCategory {
-    name: string;
-    parent_id: string | null;
-    product_details_categories: string[];
-}
-
-export interface TUpdateCategory {
-    name: string;
-    product_details_categories: string[];
+    isFeatured: boolean;
+    image?: string;
 }

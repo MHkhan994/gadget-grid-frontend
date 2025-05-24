@@ -26,6 +26,8 @@ export const generateCategoryTree = (
                 product_details_categories: category.product_details_categories,
                 subCategories: generateCategoryTree(categories, category._id),
                 isDeleted: false,
+                image: category?.image || '',
+                isFeatured: category.isFeatured,
             });
         }
     }
