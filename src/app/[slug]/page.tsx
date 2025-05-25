@@ -1,6 +1,6 @@
+import FilterCard from '@/components/category/FilterCard';
 import ProductCard from '@/components/shared/Product/ProductCard';
 import { Card, CardContent } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
 import { TPFilter, TProduct } from '@/types/product.interface';
 import React from 'react';
 
@@ -14,11 +14,54 @@ const ProductByCategoryPage = async ({
     const { slug } = await params;
     const query = await searchParams;
     const sort = query?.sort;
-    // const filter =
 
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/product/by-category/${slug}`,
-    );
+    // Extract filter parameters
+    const extractFilters = (searchParams: {
+        [key: string]: string | undefined;
+    }) => {
+        const filters: { [key: string]: number[] } = {};
+
+        Object.entries(searchParams).forEach(([key, value]) => {
+            // Check if key starts with 'ff' (filter parameter)
+            if (key.startsWith('ff') && value) {
+                const filterId = key.substring(2); // Remove 'ff' prefix
+                const optionIds = value.split(',').map(Number).filter(Boolean);
+                if (optionIds.length > 0) {
+                    filters[filterId] = optionIds;
+                }
+            }
+        });
+
+        return filters;
+    };
+
+    const activeFilters = extractFilters(query || {});
+
+    // Build API URL with filters
+    const buildApiUrl = (
+        slug: string,
+        filters: { [key: string]: number[] },
+        sort?: string,
+    ) => {
+        const baseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/product/by-category/${slug}`;
+        const params = new URLSearchParams();
+
+        // Add filters to query params - this will create the array format your backend expects
+        Object.entries(filters).forEach(([filterId, optionIds]) => {
+            params.append('filter', `${filterId}:${optionIds.join(',')}`);
+        });
+
+        // Add sort if present
+        if (sort) {
+            params.append('sort', sort);
+        }
+
+        return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+    };
+
+    const apiUrl = buildApiUrl(slug, activeFilters, sort);
+
+    const res = await fetch(apiUrl);
     const data = await res.json();
 
     const filters: TPFilter[] = data?.data?.filters || [];
@@ -30,24 +73,7 @@ const ProductByCategoryPage = async ({
                 {filters?.map((f) => (
                     <Card key={f?._id} className='rounded-md'>
                         <CardContent className='pt-3 p-3'>
-                            <div>
-                                <h3 className='capitalize font-semibold text-base pb-2'>
-                                    {f?.title}
-                                </h3>
-                                <div className='space-y-1'>
-                                    {f?.options?.map((op) => (
-                                        <div
-                                            className='flex justify-between items-center'
-                                            key={op.optionId}
-                                        >
-                                            <h5 className='text-sm'>
-                                                {op.value}
-                                            </h5>
-                                            <Checkbox />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            <FilterCard filter={f} />
                         </CardContent>
                     </Card>
                 ))}

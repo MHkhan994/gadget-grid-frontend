@@ -53,7 +53,7 @@ export default function ProductCard({ product }: { product: TProduct }) {
     );
 
     return (
-        <Card className='group relative overflow-hidden bg-foreground transition-all hover:shadow-md'>
+        <Card className='group relative overflow-hidden bg-foreground transition-all hover:shadow-md h-fit'>
             <div className='relative aspect-square overflow-hidden'>
                 {product.discount && (
                     <Badge className='absolute right-2 top-2 z-10 bg-green-500 text-pure-white'>
