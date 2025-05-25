@@ -9,7 +9,7 @@ import { TProduct, TReview } from '@/types/product.interface';
 import { Badge } from '@/components/ui/badge';
 import { isValidUrl } from '@/utils/common';
 
-const calculateRating = (reviews?: TReview[]) => {
+export const calculateRating = (reviews?: TReview[]) => {
     const totalRating =
         reviews?.reduce((prev, current, total) => {
             return total + current.rating;
@@ -25,7 +25,7 @@ const calculateRating = (reviews?: TReview[]) => {
     return rating;
 };
 
-const calculateDiscountPrice = (
+export const calculateDiscountPrice = (
     price: number,
     discount: TProduct['discount'],
 ) => {
@@ -84,7 +84,7 @@ export default function ProductCard({ product }: { product: TProduct }) {
                         {product.reviews?.length || 0} reviews
                     </span>
                 </div>
-                <Link href={`/products/${product.slug}`} className='block'>
+                <Link href={`/product/${product.slug}`} className='block'>
                     <h3 className='line-clamp-2 text-sm font-medium leading-tight hover:text-primary-white hover:underline'>
                         {product.name}
                     </h3>
