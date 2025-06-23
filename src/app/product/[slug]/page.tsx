@@ -1,3 +1,4 @@
+import ProductActions from '@/components/product/ProductActions';
 import {
     calculateDiscountPrice,
     calculateRating,
@@ -7,7 +8,15 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TProduct } from '@/types/product.interface';
-import { ChevronRight, Heart, ShoppingCart, Star, Truck } from 'lucide-react';
+import {
+    Check,
+    ChevronRight,
+    Heart,
+    ShoppingCart,
+    Star,
+    Truck,
+    X,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -138,23 +147,17 @@ const ProductPage = async ({
 
                     <div className='space-y-4'>
                         <div className='flex items-center gap-2 text-sm'>
-                            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-700'>
-                                <svg
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    width='16'
-                                    height='16'
-                                    viewBox='0 0 24 24'
-                                    fill='none'
-                                    stroke='currentColor'
-                                    strokeWidth='2'
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                >
-                                    <polyline points='20 6 9 17 4 12' />
-                                </svg>
-                            </div>
-                            <span className='font-medium text-green-700'>
-                                In Stock
+                            {product.quantity !== 0 && (
+                                <div className='flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-700'>
+                                    <Check size={18} />
+                                </div>
+                            )}
+                            <span
+                                className={`font-medium text-lg ${product.quantity !== 0 ? 'text-green-700' : 'text-red-700'}`}
+                            >
+                                {product.quantity !== 0
+                                    ? 'In Stock'
+                                    : 'Out of Stock'}
                             </span>
                             <span className='text-muted-foreground'>
                                 ({product.quantity} available)
@@ -166,50 +169,7 @@ const ProductPage = async ({
                             <span>Free shipping on orders over ৳10,000</span>
                         </div>
 
-                        <div className='grid gap-2'>
-                            <label htmlFor='quantity'>Quantity</label>
-                            <div className='flex w-32 items-center'>
-                                <Button
-                                    variant='outline'
-                                    size='icon'
-                                    className='h-8 w-8 rounded-r-none'
-                                >
-                                    <span>-</span>
-                                    <span className='sr-only'>
-                                        Decrease quantity
-                                    </span>
-                                </Button>
-                                <Input
-                                    id='quantity'
-                                    type='number'
-                                    min='1'
-                                    max={product.quantity}
-                                    defaultValue='1'
-                                    className='h-8 rounded-none border-x-0 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none'
-                                />
-                                <Button
-                                    variant='outline'
-                                    size='icon'
-                                    className='h-8 w-8 rounded-l-none'
-                                >
-                                    <span>+</span>
-                                    <span className='sr-only'>
-                                        Increase quantity
-                                    </span>
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className='flex flex-col gap-2 sm:flex-row'>
-                            <Button className='flex-1' size='lg'>
-                                <ShoppingCart className='mr-2 h-4 w-4' />
-                                Add to Cart
-                            </Button>
-                            <Button variant='outline' size='lg'>
-                                <Heart className='mr-2 h-4 w-4' />
-                                Add to Wishlist
-                            </Button>
-                        </div>
+                        <ProductActions product={product} />
                     </div>
 
                     <Separator />

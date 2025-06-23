@@ -14,7 +14,7 @@ async function NavbarMain() {
     return (
         <div>
             <Topbar />
-            <div className='xl:flex hidden border-b border-forground-border rounded-none shadow-md px-2 py-2 gap-1 justify-between sticky top-0 z-50 w-full'>
+            <div className='xl:flex max-w-[1920px] mx-auto hidden border-b border-forground-border rounded-none shadow-md px-2 py-2 gap-1 justify-between sticky top-0 z-50 w-full'>
                 {categoryTree.map((cat, i) => {
                     return (
                         <div

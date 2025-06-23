@@ -16,7 +16,7 @@ import ThemeButton from './ThemeButton';
 
 const Topbar = () => {
     return (
-        <div className='w-full px-2 py-3 bg-background flex justify-between items-center'>
+        <div className='w-full max-w-[1920px] mx-auto px-2 py-3 bg-background flex justify-between items-center'>
             <MobileCategoryMenu />
             <h2 className='text-dark-gray'>Gadget Grid</h2>
             <div className='text-dark-gray  w-full max-w-96 ps-2 gap-2 xl:flex hidden border border-forground-border rounded-md'>

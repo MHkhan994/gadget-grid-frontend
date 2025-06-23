@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
 import NavbarMain from '@/components/shared/Navbar/NavbarMain';
 import { ThemeProvider } from 'next-themes';
+import ReduxProvider from '@/providers/ReduxProvider';
 
 const beVietnam = Be_Vietnam_Pro({
     variable: '--font-be-vietnam',
@@ -29,8 +30,10 @@ export default function RootLayout({
                     enableSystem={true}
                 >
                     <div className='bg-background'>
-                        <NavbarMain />
-                        {children}
+                        <ReduxProvider>
+                            <NavbarMain />
+                            {children}
+                        </ReduxProvider>
                     </div>
                 </ThemeProvider>
             </body>

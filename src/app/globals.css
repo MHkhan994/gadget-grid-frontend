@@ -296,5 +296,5 @@ input {
 }
 
 .my-container {
-    @apply w-[95%] max-w-[1920px] mx-auto;
+    @apply w-[95%] max-w-[1440px] mx-auto;
 }
