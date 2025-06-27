@@ -67,15 +67,15 @@ const ProductPage = async ({
             </nav>
 
             {/* Product Details */}
-            <div className='flex flex-col md:flex-row gap-8'>
+            <div className='grid grid-cols-[2fr_3fr] gap-8'>
                 {/* Product Images */}
 
-                <div className='grid gap-4 w-full lg:w-[40%]'>
+                <div className='grid grid-cols-[1fr_4fr] gap-4 w-full'>
                     <div className='order-last flex gap-2 overflow-x-auto md:order-first md:flex-col'>
                         {product.gallery?.map((image, index) => (
                             <div
                                 key={index}
-                                className='relative aspect-square h-20 w-20 cursor-pointer overflow-hidden rounded-md border bg-muted hover:bg-muted/80'
+                                className='relative aspect-square h-20 w-full cursor-pointer overflow-hidden rounded-md border bg-muted hover:bg-muted/80'
                             >
                                 <Image
                                     src={image || '/placeholder.svg'}
@@ -86,23 +86,16 @@ const ProductPage = async ({
                             </div>
                         ))}
                     </div>
-                    <div className=''>
-                        <div className='relative aspect-square overflow-hidden rounded-lg bg-muted'>
-                            <Image
-                                src={
-                                    product.thumbnail ||
-                                    '/product-placeholder.jpg'
-                                }
-                                alt={product.name}
-                                fill
-                                className='object-contain'
-                            />
-                            {/* {product.discount > 0 && (
-                                    <Badge className="absolute right-2 top-2" variant="destructive">
-                                        -{product.discount}%
-                                    </Badge>
-                                )} */}
-                        </div>
+
+                    <div className='relative w-full overflow-hidden p-1 rounded-lg'>
+                        <Image
+                            src={
+                                product.thumbnail || '/product-placeholder.jpg'
+                            }
+                            alt={product.name}
+                            fill
+                            className='object-contain w-full h-full'
+                        />
                     </div>
                 </div>
 
@@ -171,7 +164,10 @@ const ProductPage = async ({
                             <span>Free shipping on orders over ৳10,000</span>
                         </div>
 
-                        <ProductActions product={product} />
+                        <ProductActions
+                            discountPrice={discountPrice}
+                            product={product}
+                        />
                     </div>
 
                     <Separator />

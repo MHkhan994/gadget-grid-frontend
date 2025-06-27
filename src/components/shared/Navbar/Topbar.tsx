@@ -3,16 +3,15 @@ import { Input } from '@/components/ui/input';
 import {
     ArrowRightLeft,
     Computer,
-    Moon,
     Search,
     ShoppingCart,
-    Sun,
     User,
 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import MobileCategoryMenu from './MobileCategoryMenu';
 import ThemeButton from './ThemeButton';
+import CartDrawer from '../CartDrawer';
 
 const Topbar = () => {
     return (
@@ -45,13 +44,7 @@ const Topbar = () => {
                 >
                     <ArrowRightLeft size={20} />
                 </Button>
-                <Button
-                    variant={'plain'}
-                    tooltip='My Cart'
-                    className='text-dark-gray'
-                >
-                    <ShoppingCart size={20} />
-                </Button>
+                <CartDrawer />
                 <Button
                     variant={'plain'}
                     tooltip='My Profile'

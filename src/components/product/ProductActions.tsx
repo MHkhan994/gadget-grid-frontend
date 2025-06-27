@@ -1,12 +1,21 @@
 'use client';
-import { TProduct } from '@/types/product.interface';
+import { CartProduct, TProduct } from '@/types/product.interface';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Heart, ShoppingCart } from 'lucide-react';
+import { useAppDispatch } from '@/redux/hooks';
+import { addToCart } from '@/redux/reducers/cartReducer';
 
-const ProductActions = ({ product }: { product: TProduct }) => {
+const ProductActions = ({
+    product,
+    discountPrice,
+}: {
+    product: TProduct;
+    discountPrice: number;
+}) => {
     const [quantity, setQuantity] = useState(1);
+    const dispatch = useAppDispatch();
 
     const handleQuantity = (type: 'minus' | 'plus') => {
         if (type === 'minus' && quantity !== 1) {
@@ -14,6 +23,21 @@ const ProductActions = ({ product }: { product: TProduct }) => {
         } else if (type === 'plus' && quantity < product.quantity) {
             setQuantity((prev) => prev + 1);
         }
+    };
+
+    const handleAddToCart = () => {
+        const cartProduct: CartProduct = {
+            _id: product?._id,
+            name: product?.name,
+            price: discountPrice,
+            slug: product?.slug,
+            quantity: quantity,
+            shipping: product?.shipping?.free ? 0 : product.shipping.cost,
+            thumbnail: product?.thumbnail,
+            tax: product?.tax,
+        };
+
+        dispatch(addToCart({ item: cartProduct, openCart: true }));
     };
 
     return (
@@ -58,7 +82,11 @@ const ProductActions = ({ product }: { product: TProduct }) => {
 
             <div className='flex flex-col gap-2 sm:flex-row'>
                 {product.quantity !== 0 && (
-                    <Button className='flex-1' size='lg'>
+                    <Button
+                        onClick={handleAddToCart}
+                        className='flex-1'
+                        size='lg'
+                    >
                         <ShoppingCart className='mr-2 h-4 w-4' />
                         Add to Cart
                     </Button>

@@ -82,4 +82,16 @@ export type TProduct = {
     createdAt?: string;
     updatedAt?: string;
     shipping: TShipping;
+    tax: number;
+};
+
+export type CartProduct = {
+    _id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    thumbnail: string;
+    slug: string;
+    shipping: number;
+    tax: number;
 };

@@ -71,7 +71,7 @@ export default function ProductCard({ product }: { product: TProduct }) {
                     className='object-cover transition-transform group-hover:scale-105'
                 />
             </div>
-            <CardContent className='p-4'>
+            <CardContent className='p-3'>
                 <div className='mb-2 flex items-center'>
                     <div className='flex items-center'>
                         <Star className='h-4 w-4 fill-primary text-primary' />
