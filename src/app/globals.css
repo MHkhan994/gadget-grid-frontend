@@ -17,6 +17,7 @@ body {
     color: var(--foreground);
     background: var(--background);
     font-family: 'Be Vietnam Pro', serif;
+    border-color: var(--fg-border) !important;
 }
 
 @layer utilities {

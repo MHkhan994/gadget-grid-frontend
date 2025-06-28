@@ -67,33 +67,34 @@ const ProductPage = async ({
             </nav>
 
             {/* Product Details */}
-            <div className='grid grid-cols-[2fr_3fr] gap-8'>
+            <div className='grid xl:grid-cols-[2fr_3fr] md:grid-cols-2 gap-8'>
                 {/* Product Images */}
 
-                <div className='grid grid-cols-[1fr_4fr] gap-4 w-full'>
-                    <div className='order-last flex gap-2 overflow-x-auto md:order-first md:flex-col'>
+                <div className='grid lg:grid-cols-[1fr_4fr] gap-4 w-full'>
+                    <div className='flex order-last lg:order-first gap-2 overflow-x-auto lg:flex-col'>
                         {product.gallery?.map((image, index) => (
                             <div
                                 key={index}
-                                className='relative aspect-square h-20 w-full cursor-pointer overflow-hidden rounded-md border bg-muted hover:bg-muted/80'
+                                className='relative aspect-square size-20 w-full cursor-pointer overflow-hidden rounded-md border bg-muted hover:bg-muted/80'
                             >
                                 <Image
                                     src={image || '/placeholder.svg'}
                                     alt={`${product.name} - Image ${index + 1}`}
                                     fill
-                                    className='object-cover'
+                                    className='object-cover h-full w-full'
                                 />
                             </div>
                         ))}
                     </div>
 
-                    <div className='relative w-full overflow-hidden p-1 rounded-lg'>
+                    <div className='relative w-full h-fit overflow-hidden p-1 rounded-lg'>
                         <Image
                             src={
                                 product.thumbnail || '/product-placeholder.jpg'
                             }
                             alt={product.name}
-                            fill
+                            height={700}
+                            width={1000}
                             className='object-contain w-full h-full'
                         />
                     </div>
@@ -181,7 +182,7 @@ const ProductPage = async ({
 
             {/* Product Details Tabs */}
 
-            <div className='flex gap-4 mt-10'>
+            <div className='flex lg:flex-row flex-col gap-4 mt-10'>
                 <div className=' w-full'>
                     <Tabs defaultValue='specifications'>
                         <TabsList className='w-full justify-start'>
@@ -356,14 +357,14 @@ const ProductPage = async ({
                     </Tabs>
                 </div>
 
-                <section className='max-w-xs w-full bg-foreground rounded-md border py-3 px-2'>
-                    <h2 className='mb-6 text-2xl font-bold'>
+                <section className='lg:max-w-xs w-full bg-foreground rounded-md border py-3 px-2'>
+                    <h2 className='mb-4 text-2xl font-bold'>
                         Related Products
                     </h2>
-                    <div className='space-y-2'>
+                    <div className='grid gap-2 lg:grid-cols-1 md:grid-cols-3 sm:grid-cols-2'>
                         {relatedProducts?.map((p) => (
                             <Link
-                                className='flex border gap-1 bg-background p-2 rounded-lg'
+                                className='flex flex-col lg:flex-row border gap-3 bg-background p-2 rounded-lg'
                                 href={`/product/${p.slug}`}
                                 key={p._id}
                             >
@@ -376,7 +377,7 @@ const ProductPage = async ({
                                     alt={p?.name}
                                     width={200}
                                     height={200}
-                                    className='object-contain size-20 transition-transform group-hover:scale-105'
+                                    className='object-contain lg:size-20 mx-auto transition-transform group-hover:scale-105'
                                 />
 
                                 <div>

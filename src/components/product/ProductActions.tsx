@@ -84,7 +84,7 @@ const ProductActions = ({
                 {product.quantity !== 0 && (
                     <Button
                         onClick={handleAddToCart}
-                        className='flex-1'
+                        className='md:flex-1'
                         size='lg'
                     >
                         <ShoppingCart className='mr-2 h-4 w-4' />

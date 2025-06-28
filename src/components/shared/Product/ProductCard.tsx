@@ -1,13 +1,13 @@
 import type React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, ShoppingCart, Star } from 'lucide-react';
+import { ArrowLeftRight, ShoppingCart, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import { TProduct, TReview } from '@/types/product.interface';
 import { Badge } from '@/components/ui/badge';
 import { isValidUrl } from '@/utils/common';
+import ProductCardActions from './ProductCardActions';
 
 export const calculateRating = (reviews?: TReview[]) => {
     const totalRating =
@@ -89,22 +89,19 @@ export default function ProductCard({ product }: { product: TProduct }) {
                         {product.name}
                     </h3>
                 </Link>
-                <div className='mt-2 flex items-center justify-between'>
-                    <div>
-                        <span className='font-bold text-primary-white text-sm'>
-                            ৳{discountPrice.toLocaleString()}
+
+                <div className='py-2'>
+                    <span className='font-bold text-primary-white text-sm'>
+                        ৳{discountPrice.toLocaleString()}
+                    </span>
+                    {product.discount && (
+                        <span className='ml-2 text-sm text-muted-foreground line-through'>
+                            ৳{product.price.toLocaleString()}
                         </span>
-                        {product.discount && (
-                            <span className='ml-2 text-sm text-muted-foreground line-through'>
-                                ৳{product.price.toLocaleString()}
-                            </span>
-                        )}
-                    </div>
-                    <Button size='sm' variant='outline' className='h-8 w-8 p-0'>
-                        <ShoppingCart className='h-4 w-4' />
-                        <span className='sr-only'>Add to cart</span>
-                    </Button>
+                    )}
                 </div>
+
+                <ProductCardActions product={product} />
             </CardContent>
         </Card>
     );

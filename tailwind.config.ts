@@ -92,7 +92,7 @@ export default {
                 shiny: {
                     DEFAULT: 'hsl(var(--shiny))',
                 },
-                border: 'hsl(var(--border))',
+                border: 'hsl(var(--fg-border))',
                 input: 'hsl(var(--input))',
                 ring: 'hsl(var(--ring))',
                 chart: {

@@ -4,6 +4,7 @@ import './globals.css';
 import NavbarMain from '@/components/shared/Navbar/NavbarMain';
 import { ThemeProvider } from 'next-themes';
 import ReduxProvider from '@/providers/ReduxProvider';
+import { Toaster } from 'sonner';
 
 const beVietnam = Be_Vietnam_Pro({
     variable: '--font-be-vietnam',
@@ -35,6 +36,7 @@ export default function RootLayout({
                             {children}
                         </ReduxProvider>
                     </div>
+                    <Toaster richColors position='top-center' />
                 </ThemeProvider>
             </body>
         </html>
